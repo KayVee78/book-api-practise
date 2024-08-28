@@ -1,0 +1,10 @@
+-------------------------------------------Commands to run from the root directory-------------------------------------------
+
+npm i -g @nestjs/cli
+nest -v
+
+nest new book-api
+(ctrl + k -> to clear the terminal)
+
+npm start -> start the project
+npm run start:dev -> to start the project (every time we do change this restarts the server)
