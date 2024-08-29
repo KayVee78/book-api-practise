@@ -1,23 +1,15 @@
-FROM alpine:3.20
+FROM node:18-alpine
 
-# /usr/src/app working directly is inherited from base image
+WORKDIR /app
 
-COPY package.json .
-COPY yarn.lock .
-COPY .npmrc .
+COPY package*.json ./
 
-RUN yarn install --production=false 
+RUN npm install --production
 
 COPY . .
 
-ARG NODE_ENV=production
-ENV NODE_ENV=${NODE_ENV}
-
-RUN yarn build 
+RUN npm run build
 
 EXPOSE 3000
 
-# appuser user/group already inherited from base image
-USER appuser
-
-ENTRYPOINT ["node", "dist/main"]
+CMD ["npm", "start"]
