@@ -9,8 +9,12 @@ phases:
       - echo [*] Date:`date`
   pre_build:
     commands:
+      - echo $AWS_ACCOUNT_ID
+      - echo $AWS_DEFAULT_REGION
+      - echo $IMAGE_REPO_NAME
+      - echo $IMAGE_TAG
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 412381760559.dkr.ecr.ap-south-1.amazonaws.com
+      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - docker pull $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG  || true
 #   build:
 #     commands:
