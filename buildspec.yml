@@ -14,7 +14,8 @@ phases:
       - echo $IMAGE_REPO_NAME
       - echo $IMAGE_TAG
       - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      # - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
+      - $(aws ecr get-login-password --region $AWS_DEFAULT_REGION)
       - docker pull $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG  || true
 #   build:
 #     commands:
