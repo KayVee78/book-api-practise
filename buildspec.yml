@@ -5,15 +5,16 @@ phases:
     runtime-versions:
       docker: latest
     commands:
-      - echo [*] Repo:$IMAGE_REPO_NAME:$IMAGE_TAG
-      - echo [*] Region:$AWS_DEFAULT_REGION
-      - echo [*] Account:$AWS_ACCOUNT_ID
-      - echo [*] Date:`date`
+      - echo [*] Repo: $IMAGE_REPO_NAME:$IMAGE_TAG
+      - echo [*] Region: $AWS_DEFAULT_REGION
+      - echo [*] Account: $AWS_ACCOUNT_ID
+      - echo [*] Date: `date`
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
-      - docker pull $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG  || true
+      - $(aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com)
+      - echo Pulling existing Docker image...
+      - docker pull $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG || true
   build:
     commands:
       - echo [1] Building the project... `date`
