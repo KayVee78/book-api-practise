@@ -6,7 +6,7 @@ phases:
       - echo [*] Repo: $IMAGE_REPO_NAME:$IMAGE_TAG
       - echo [*] Region: $AWS_DEFAULT_REGION
       - echo [*] Account: $AWS_ACCOUNT_ID
-      - echo [*] Date: `date`
+      - echo [*] Date: $(date)
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
