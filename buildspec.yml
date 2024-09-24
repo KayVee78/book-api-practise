@@ -36,7 +36,7 @@ phases:
       - cat $CONTAINER_NAME.json
       - echo Build completed on `date`
       - echo Pushing the Docker image...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/tf-house-bookapi-api:prod
       - echo Docker image pushed to repository!
 artifacts:
   files: $CONTAINER_NAME.json
