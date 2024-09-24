@@ -21,17 +21,19 @@ phases:
       - docker --version
       - echo [2] Building the Docker image...
       # - docker build --cache-from $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - echo [*] Repo:$IMAGE_REPO_NAME 
+      - echo [*] Tag:$IMAGE_TAG 
       - docker build -t $IMAGE_REPO_NAME .
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
       - echo [-] Docker build completed!
-  post_build:
-    commands:
-      # Name should be the contianer name in Task definition
-      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > $CONTAINER_NAME.json
-      - cat $CONTAINER_NAME.json
-      - echo Build completed on `date`
-      - echo Pushing the Docker image...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
-      - echo Docker image pushed to repository!
-artifacts:
-  files: $CONTAINER_NAME.json
+#   post_build:
+#     commands:
+#       # Name should be the contianer name in Task definition
+#       - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG > $CONTAINER_NAME.json
+#       - cat $CONTAINER_NAME.json
+#       - echo Build completed on `date`
+#       - echo Pushing the Docker image...
+#       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+#       - echo Docker image pushed to repository!
+# artifacts:
+#   files: $CONTAINER_NAME.json
